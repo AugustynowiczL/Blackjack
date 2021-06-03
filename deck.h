@@ -85,11 +85,6 @@ char *stringValue(int card) {
     }
 }
 
-
-
-
-
-
 // C Program to shuffle a given array
 // A utility function to swap to integers
 void swap (int *a, int *b)
@@ -108,7 +103,7 @@ void printArray (int arr[], int n)
 }
  
 // A function to generate a random permutation of arr[]
-void randomize ( int arr[], int n )
+void shuffle ( int arr[], int n )
 {
     // Use a different seed value so that we don't get same
     // result each time we run this program
@@ -124,5 +119,27 @@ void randomize ( int arr[], int n )
         // Swap arr[i] with the element at random index
         swap(&arr[i], &arr[j]);
     }
+}
+
+//Timer for delay after printf
+void delay(int number_of_seconds)
+{
+    // Converting time into milli_seconds
+    int milli_seconds = 1000 * number_of_seconds;
+  
+    // Storing start time
+    clock_t start_time = clock();
+  
+    // looping till required time is not achieved
+    while (clock() < start_time + milli_seconds)
+        ;
+}
+
+void resetDeck(deck *p) {
+    for (int i = 0; i < NUM_CARDS; i++) {
+        p->cards[i] = i;
+    }
+    p->number = NUM_CARDS;
+    shuffle(p->cards, p->number);
 }
 #endif

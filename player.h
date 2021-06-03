@@ -40,12 +40,17 @@ player* player_init(char *name, int balance) {
     return p;
 }
 
-
-int checkOutcome(player *p, dealer *dl) {
-    
+void resetPlayer(player* p) {
+    p->ncards = 0;
+    p->hand_value = 0;
+    return;
 }
 
-
+void resetDealer(dealer* p) {
+    p->ncards = 0;
+    p->hand_value = 0;
+    return;
+}
 
 //Return the value of the players hand
 int handValue(player* p) {
