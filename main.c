@@ -76,8 +76,9 @@ int main() {
                 delay(2);
             }
             //Loop for the user to play on
-            while (playon) {
+            while (playon && move != 'D') {
                 hit(p, d);
+                adjustAce(p);
                 delay(2);
                 //If User busts then exit loop and check dealers hand
                 if (handValue(p) > 21) {
@@ -113,6 +114,7 @@ int main() {
         //If the user stands, do nothing and check the dealers hand
         } else {
             printf("User has stood\n");
+            p->balance -= bet;
             delay(2);
         }
 
@@ -124,6 +126,7 @@ int main() {
             //Dealer keeps drawing cards until he busts or get >= 17
             while (dealerHandValue(dl) < 17 && !dbust) {
                 dealerHit(dl, d);
+                adjustAceD;
                 delay(2);
                 //If the dealer busts exit the loop
                 if (dealerHandValue(dl) > 21) {
@@ -142,6 +145,7 @@ int main() {
             //If the player wins 
             if (dealerHandValue(dl) < handValue(p)) {
                 printf("Dealer loses, player wins %d\n", 2*bet);
+                p->balance += 2*bet;
                 delay(2);
             //If the dealer wins 
             } else if (dealerHandValue(dl) > handValue(p)) {
@@ -150,6 +154,7 @@ int main() {
             //If the dealer and player tie
             } else {
                 printf("There is a push!\n");
+                p->balance += bet;
                 delay(2);
             }
         }
@@ -179,6 +184,9 @@ int main() {
             }
             //While loop condition is until player balance is < 0, therefore to exit give player negative balance
             p->balance = -1;
+        } else {
+            printf("Your balance is: %d. We will deal you another hand\n", p->balance);
+            delay(4);
         }
     }
     return 0;
