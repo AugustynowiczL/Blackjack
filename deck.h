@@ -85,6 +85,8 @@ char *stringValue(int card) {
     }
 }
 
+//Line 90-138 adapted from online sources to implement array shuffling, and timer
+
 // C Program to shuffle a given array
 // A utility function to swap to integers
 void swap (int *a, int *b)
