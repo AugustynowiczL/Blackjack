@@ -1,0 +1,3 @@
+Constructed new Blackjack Card Game in C++ using layout of old Blackjack Card Game in C located in other directory of this repo.
+This implementation included classes, i.e., use of function overloading, methods, etc.
+Fixed minor bugs with double feature that were present in old Blackjack Card game in C.
