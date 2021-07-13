@@ -9,6 +9,7 @@
 class Player {
     std::string name;
     int hand_value;
+    int hidden_value;
     int balance;
     int aces;
     int ncards;
@@ -31,10 +32,15 @@ class Player {
         void adjustAce();
         void resetPlayer();
         int  getHandValue();
+        void setHiddenHandValue(int value);
+        int getHiddenHandValue();
         void printHand();
         void hit(Deck *d);
+        void hiddenhit(Deck *d);
         std::string const faceValue(int card); 
         std::string const stringValue(int card);
+        void revealHidden();
+        bool checkBlackjack();
 };
 
 //Constructor for player class
@@ -138,6 +144,15 @@ int Player::getHandValue() {
     return hand_value;
 }
 
+//Method to set hidden hand value of the dealer
+void Player::setHiddenHandValue(int value) {
+    hidden_value = value;
+}
+
+int Player::getHiddenHandValue() {
+    return hidden_value;
+}
+
 //Method to print out the hand that the player currently has
 void Player::printHand() {
     for (int i = 0; i < ncards; i++) {
@@ -150,6 +165,7 @@ void Player::hit(Deck *d) {
     cards[ncards] = d->cards[0]; 
     setnCards(ncards + 1);
     setHandValue(hand_value + cardValue(d->cards[0]));
+    setHiddenHandValue(hand_value);
     checkAce();
     Deck::popFromDeck(d);
     if (isDealer) {
@@ -159,6 +175,18 @@ void Player::hit(Deck *d) {
         std::cout << "You got a " << faceValue(cards[ncards-1]) << " of " << stringValue(cards[ncards-1]) << std::endl;
         std::cout << "Your new hand value is: " << getHandValue() << std::endl;
     }
+}
+
+void Player::hiddenhit(Deck *d) {
+    cards[ncards] = d->cards[0];
+    setnCards(ncards + 1);
+    setHandValue(hand_value + cardValue(d->cards[0]));
+    checkAce();
+    Deck::popFromDeck(d);
+    if (isDealer) {
+        std::cout << "Dealer has got his face down card" << std::endl;  
+        std::cout << "Dealer's hand value is: " << getHiddenHandValue() << std::endl; 
+    } 
 }
 
 //Method to return the face value of the card given as a string
@@ -206,4 +234,36 @@ std::string const Player::stringValue(int card) {
     } else {
         return "Spades";
     }
+}
+
+//Method to reveal to the user what the dealers face down card was
+void Player::revealHidden() {
+    std::cout << "The dealers hidden card was " << faceValue(cards[ncards-1]) << " of " << stringValue(cards[ncards-1]) << std::endl;
+    std::cout << "Dealer's new hand value is: " << getHandValue() << std::endl;
+    delay(2);
+}
+
+//Method to chedk if the user got blackjack 
+bool Player::checkBlackjack() {
+    if (getHandValue() == 21) {
+        std::cout << "The User has gotten blackjack. Let's see what the dealer gets" << std::endl;
+        return true;
+    }
+}
+
+//Useful button functions that are used
+int ifPressed (bool isPressed[4]) {
+    for (int i = 0; i < 4; i++) {
+        if (isPressed[i]) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void clearInput (bool isPressed[4]) {
+    for (int i = 0; i < 4; i++) {
+        isPressed[i] = false;
+    }
+    return;
 }
