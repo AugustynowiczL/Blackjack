@@ -2,5 +2,8 @@
 
 Constructed new Blackjack Card Game in C++ using layout of old Blackjack Card Game in C located in other directory of this repo.
 This implementation included classes, i.e., use of function overloading, methods, etc.
-I have also included a minimalistic gui for different commands in the game displayed through a window with win32 api. 
+Two version of main have been added. main.cpp is fully functional but is played solely through the terminal.
+gui_main.cpp has am included a minimalistic gui for commands in the game displayed through a window with win32 api. Only includes stand, hit, double, and change bet 
+buttons but all inputs and instructions are still currently located in the terminal. The final goal will be to implement windows which display each of the players and dealers 
+cards alongside their respective counters for hand value.
 Fixed minor bugs with double feature that were present in old Blackjack Card game in C.
